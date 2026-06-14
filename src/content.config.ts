@@ -2,7 +2,7 @@ import {glob} from 'astro/loaders';
 
 import {z} from 'astro/zod';
 
-import {defineCollection} from 'astro:content';
+import {defineCollection, reference} from 'astro:content';
 import { globWithParser } from '@/lib/parsers';
 
 const things = defineCollection({
@@ -15,7 +15,7 @@ const things = defineCollection({
 			description: z.string(),
 			date: z.coerce.date(),
 			published: z.boolean().default(true),
-			tags: z.array(z.string()),
+			tags: z.array(reference("tags")).optional(),
 		})
 });
 
