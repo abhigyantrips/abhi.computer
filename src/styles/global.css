@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
-:root {
-	font-family: var(--font-display);
+@theme {
+	--font-display: var(--font-display);
+	--font-mono: var(--font-mono);
+}
+
+a {
+	@apply underline hover:no-underline hover:bg-black hover:text-white underline-offset-3;
 }
