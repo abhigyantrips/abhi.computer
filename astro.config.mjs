@@ -14,6 +14,12 @@ export default defineConfig({
   site: 'https://abhi.computer',
   output: 'static',
 
+  session: {
+    driver: {
+      entrypoint: 'unstorage/drivers/null',
+    },
+  },
+
   adapter: cloudflare(),
 
   fonts: [
