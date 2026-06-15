@@ -1,32 +1,12 @@
 ---
-import { Font } from 'astro:assets';
 import '@hackernoon/pixel-icon-library/fonts/iconfont.css';
 import '@/styles/global.css';
+import BaseHead from '@/components/base-head.astro';
 ---
 
 <html lang="en">
 	<head>
-		<meta charset="utf-8" />
-		<link
-			rel="icon"
-			type="image/svg+xml"
-			href="/favicon.svg"
-		/>
-		<link
-			rel="sitemap"
-			href="/sitemap-index.xml"
-		/>
-		<meta
-			name="viewport"
-			content="width=device-width"
-		/>
-		<meta
-			name="generator"
-			content={Astro.generator}
-		/>
-		<Font cssVariable="--font-display" />
-		<Font cssVariable="--font-mono" />
-		<title>Abhigyan's Com-Puu-Tah</title>
+		<BaseHead />
 	</head>
 	<body class="flex flex-col justify-center items-center min-h-screen">
 		<div class="relative font-display">
