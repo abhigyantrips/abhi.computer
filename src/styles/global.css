@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
 	--font-display: var(--font-display);
@@ -7,4 +8,8 @@
 
 a {
 	@apply underline hover:no-underline hover:bg-black hover:text-white underline-offset-3;
+}
+
+.hn {
+	line-height: unset;
 }
