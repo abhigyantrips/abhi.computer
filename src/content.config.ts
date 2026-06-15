@@ -22,7 +22,7 @@ const things = defineCollection({
 const links = defineCollection({
 	loader: globWithParser({
 		base: "./content/links",
-		pattern: "**/*.mdx",
+		pattern: "**/*.md",
 		parser: async (entry) => {
 			const { id, data }: { id: string; data: { title?: string; date?: string } } = entry;
 
@@ -48,7 +48,7 @@ const links = defineCollection({
 				title: z.string(),
 			}),
 			date: z.coerce.date(),
-			tags: z.array(z.string()),
+			tags: z.array(reference("tags")).optional(),
 		})
 });
 
