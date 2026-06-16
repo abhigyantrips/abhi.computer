@@ -54,7 +54,7 @@ const links = defineCollection({
 
 const tags = defineCollection({
 	loader: glob({
-		base: "./src/content/tags",
+		base: "./content/tags",
 		pattern: "**/[^_]*.json",
 	}),
 	schema: z.object({

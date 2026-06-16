@@ -1,1 +1,44 @@
-<object></object>
+---
+import ReadingLayout from "@/layouts/reading-layout.astro";
+import { formatReadingTime } from "@/lib/utils";
+import { getEntries } from "astro:content";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+	const posts = await getCollection("things", ({ data }) => data.published);
+	return posts.map((post) => ({
+		params: { id: post.id },
+		props: { post },
+	}));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const tags = await getEntries(post.data.tags || []);
+---
+
+<ReadingLayout
+	post={{
+		title: post.data.title,
+		description: post.data.description,
+		date: post.data.date.toDateString(),
+		readingTime: formatReadingTime(post.body ?? ""),
+		url: `/things/${post.id}`,
+	}}
+>
+	<article class="e-content prose-content">
+		<Content />
+		<div class="not-prose font-gummy flex items-center justify-start gap-2 tracking-wider">
+			{
+				tags.map((tag) => (
+					<abbr
+						title={tag.data.description}
+						class="p-category cursor-help rounded bg-(--color-text-muted)/20 px-2 py-1 text-xs text-(--color-text-muted) no-underline"
+					>
+						{tag.data.name}
+					</abbr>
+				))
+			}
+		</div>
+	</article>
+</ReadingLayout>
