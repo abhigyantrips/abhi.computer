@@ -1,5 +1,6 @@
 ---
 import ReadingLayout from "@/layouts/reading-layout.astro";
+import { mdxComponents } from "@/lib/mdx";
 import { formatReadingTime } from "@/lib/utils";
 import { getEntries } from "astro:content";
 import { getCollection, render } from "astro:content";
@@ -21,13 +22,17 @@ const tags = await getEntries(post.data.tags || []);
 	post={{
 		title: post.data.title,
 		description: post.data.description,
-		date: post.data.date.toDateString(),
+		date: post.data.date.toLocaleString("en-DB", {
+			day: "numeric",
+			month: "long",
+			year: "numeric",
+		}),
 		readingTime: formatReadingTime(post.body ?? ""),
 		url: `/things/${post.id}`,
 	}}
 >
 	<article class="e-content prose-content">
-		<Content />
+		<Content components={mdxComponents} />
 		<div class="not-prose font-gummy flex items-center justify-start gap-2 tracking-wider">
 			{
 				tags.map((tag) => (

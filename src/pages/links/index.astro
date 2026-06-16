@@ -62,9 +62,7 @@ function formatTime(date: Date | string) {
 									class="dt-published text-left text-sm text-gray-500"
 									datetime={post.data.date}
 								>
-									{dateStr}
-									{", "}
-									{timeStr}
+									{dateStr + ", " + timeStr}
 								</time>
 								<a
 									class="cursor-pointer px-2 py-1 text-sm text-gray-500"
