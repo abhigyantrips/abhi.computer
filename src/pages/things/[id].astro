@@ -33,7 +33,7 @@ const tags = await getEntries(post.data.tags || []);
 >
 	<article class="e-content prose-content">
 		<Content components={mdxComponents} />
-		<div class="not-prose font-gummy flex items-center justify-start gap-2 tracking-wider">
+		<div class="not-prose flex items-center justify-start gap-2 tracking-wider">
 			{
 				tags.map((tag) => (
 					<abbr
