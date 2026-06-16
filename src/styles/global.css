@@ -2,7 +2,6 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-	--font-display: var(--font-display);
 	--font-mono: var(--font-mono);
 }
 

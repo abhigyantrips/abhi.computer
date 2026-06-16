@@ -1,86 +1,23 @@
 ---
-import '@hackernoon/pixel-icon-library/fonts/iconfont.css';
-import '@/styles/global.css';
-import BaseHead from '@/components/base-head.astro';
+import "@/styles/global.css";
+import BaseHead from "@/components/base-head.astro";
+import Logo from "@/components/logo.astro";
 ---
 
 <html lang="en">
-	<head>
-		<BaseHead />
-	</head>
-	<body class="flex flex-col justify-center items-center min-h-screen">
-		<div class="relative font-display">
-			<h1 class="text-7xl font-light tracking-wider">
-				<span class="syllable text-red-600">com</span>-<span class="syllable text-green-600">puu</span>-<span
-					class="syllable text-blue-600">tah</span
-				>
-			</h1>
-			<button
-				type="button"
-				id="sound-button"
-				class="absolute left-full top-1/2 -translate-y-1/2 ml-2 md:ml-4 text-3xl text-neutral-800 hover:text-white hover:bg-black transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-				aria-label="Play pronunciation"
-			>
-				<i class="hn hn-sound-on"></i>
-			</button>
-		</div>
+  <head>
+    <BaseHead />
+  </head>
+  <body class="flex flex-col justify-center items-center min-h-screen px-4">
+    <Logo class="w-full max-w-3xl h-auto" />
 
-		<div class="font-mono mt-4 text-lg text-center space-y-4">
-			<p><a href="https://abhi.now/">abhigyan's</a> computer shenanigans</p>
-			<p>i post about <a href="/links">cool links</a> and <a href="/things">tech things</a>.</p>
-		</div>
-
-		<script>
-			const syllables = document.querySelectorAll('.syllable');
-			const button = document.getElementById('sound-button');
-			const audio = new Audio('/hero.mp3');
-
-			const colors = ['text-red-600', 'text-green-600', 'text-blue-600'];
-			const STEP_MS = 500;
-			const TOTAL_MS = STEP_MS * colors.length;
-
-			function setActiveSyllable(activeIndex: number) {
-				syllables.forEach((s, i) => {
-					if (i === activeIndex) {
-						s.classList.remove('text-black');
-						s.classList.add(colors[i]);
-					} else {
-						s.classList.remove(colors[i]);
-						s.classList.add('text-black');
-					}
-				});
-			}
-
-			function restoreColors() {
-				syllables.forEach((s, i) => {
-					s.classList.remove('text-black');
-					s.classList.add(colors[i]);
-				});
-			}
-
-			button.addEventListener('click', () => {
-				if (button.disabled) return;
-
-				button.disabled = true;
-				audio.currentTime = 0;
-				audio.play();
-
-				// Turn all syllables black, then immediately highlight the first one
-				syllables.forEach((s) => s.classList.add('text-black'));
-				syllables.forEach((s, i) => s.classList.remove(colors[i]));
-				setActiveSyllable(0);
-
-				// Cycle through the remaining syllables
-				for (let i = 1; i < colors.length; i++) {
-					setTimeout(() => setActiveSyllable(i), i * STEP_MS);
-				}
-
-				// Restore original multi-color state and re-enable the button
-				setTimeout(() => {
-					restoreColors();
-					button.disabled = false;
-				}, TOTAL_MS);
-			});
-		</script>
-	</body>
+    <div class="font-mono mt-8 text-lg text-center space-y-4">
+      <p><a href="https://abhi.now/">abhigyan's</a> computer shenanigans</p>
+      <p>
+        i post about <a href="/links">cool links</a> and <a href="/things"
+          >tech things</a
+        >.
+      </p>
+    </div>
+  </body>
 </html>
