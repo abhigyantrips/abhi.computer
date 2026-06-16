@@ -1,9 +1,9 @@
-import {glob} from 'astro/loaders';
+import { glob } from "astro/loaders";
 
-import {z} from 'astro/zod';
+import { z } from "astro/zod";
 
-import {defineCollection, reference} from 'astro:content';
-import { globWithParser } from '@/lib/parsers';
+import { globWithParser } from "@/lib/parsers";
+import { defineCollection, reference } from "astro:content";
 
 const things = defineCollection({
 	loader: glob({
@@ -11,12 +11,12 @@ const things = defineCollection({
 		pattern: "**/*.mdx",
 	}),
 	schema: z.object({
-			title: z.string(),
-			description: z.string(),
-			date: z.coerce.date(),
-			published: z.boolean().default(true),
-			tags: z.array(reference("tags")).optional(),
-		})
+		title: z.string(),
+		description: z.string(),
+		date: z.coerce.date(),
+		published: z.boolean().default(true),
+		tags: z.array(reference("tags")).optional(),
+	}),
 });
 
 const links = defineCollection({
@@ -43,13 +43,13 @@ const links = defineCollection({
 		},
 	}),
 	schema: z.object({
-			link: z.object({
-				url: z.url(),
-				title: z.string(),
-			}),
-			date: z.coerce.date(),
-			tags: z.array(reference("tags")).optional(),
-		})
+		link: z.object({
+			url: z.url(),
+			title: z.string(),
+		}),
+		date: z.coerce.date(),
+		tags: z.array(reference("tags")).optional(),
+	}),
 });
 
 const tags = defineCollection({

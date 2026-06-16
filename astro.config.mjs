@@ -1,38 +1,45 @@
 // @ts-check
-import { defineConfig, fontProviders } from 'astro/config';
+import { defineConfig, fontProviders } from "astro/config";
 
-import tailwindcss from '@tailwindcss/vite';
+import tailwindcss from "@tailwindcss/vite";
 
-import cloudflare from '@astrojs/cloudflare';
+import cloudflare from "@astrojs/cloudflare";
 
-import mdx from '@astrojs/mdx';
+import mdx from "@astrojs/mdx";
 
-import sitemap from '@astrojs/sitemap';
+import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://abhi.computer',
-  output: 'static',
+	site: "https://abhi.computer",
+	output: "static",
 
-  session: {
-    driver: {
-      entrypoint: 'unstorage/drivers/null',
-    },
-  },
+	session: {
+		driver: {
+			entrypoint: "unstorage/drivers/null",
+		},
+	},
 
-  adapter: cloudflare(),
+	adapter: cloudflare(),
 
-  fonts: [
-    {
-      provider: fontProviders.fontsource(),
-      name: 'Maple Mono',
-      cssVariable: '--font-mono',
-    }
-  ],
+	fonts: [
+		{
+			provider: fontProviders.fontsource(),
+			name: "Maple Mono",
+			cssVariable: "--font-mono",
+		},
+	],
 
-  integrations: [mdx(), sitemap()],
+	integrations: [
+		mdx({
+			shikiConfig: {
+				theme: "kanagawa-dragon",
+			},
+		}),
+		sitemap(),
+	],
 
-  vite: {
-    plugins: [tailwindcss()]
-  }
+	vite: {
+		plugins: [tailwindcss()],
+	},
 });

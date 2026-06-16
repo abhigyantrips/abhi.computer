@@ -1,7 +1,36 @@
 ---
 title: My Cloudflare WAF Rules for Domains
-description: Putting domains on Cloudflare (or any web server) can lead to malicious requests made to that may or may not count into usage.
+description: This is how I tackle malicious (but harmless and annoying) requests being made to my domains on Cloudflare.
 date: 2026-06-14
 ---
 
-I've been a happy Cloudflare freeloader for about a year now. 
+I've been a happy Cloudflare freeloader[^1] for about a year now. And if you've ever tracked requests going through your domains (through Observability or otherwise)
+
+```
+(http.request.uri.path wildcard r"*/.env*") or
+(http.request.uri.path wildcard r"*/.git*") or
+(http.request.uri.path wildcard r"*/.svn*") or
+(http.request.uri.path wildcard r"*/.htaccess*") or
+(http.request.uri.path wildcard r"*/web.config*") or
+(http.request.uri.path wildcard r"*/.aws*") or
+(http.request.uri.path wildcard r"*/.ssh*") or
+(http.request.uri.path wildcard r"*/wp-*") or
+(http.request.uri.path wildcard r"*/xmlrpc*") or
+(http.request.uri.path wildcard r"*/phpmyadmin*") or
+(http.request.uri.path wildcard r"*/phpinfo*") or
+(http.request.uri.path wildcard r"*.php") or
+(http.request.uri.path wildcard r"*.yml") or
+(http.request.uri.path wildcard r"*.yaml") or
+(http.request.uri.path wildcard r"*.toml") or
+(http.request.uri.path wildcard r"*.ini") or
+(http.request.uri.path wildcard r"*.bak") or
+(http.request.uri.path wildcard r"*.sql") or
+(http.request.uri.path wildcard r"*.tar*") or
+(http.request.uri.path wildcard r"*.zip")
+```
+
+```js
+console.log("lol");
+```
+
+[^1]: And a "payloader", I have some Workers running on the Paid plan. :P

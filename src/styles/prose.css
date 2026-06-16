@@ -1,0 +1,10 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@utility prose-content {
+	@apply prose lg:prose-lg max-w-none;
+
+	.footnotes ol {
+		@apply pl-10 text-sm lg:text-base;
+	}
+}
