@@ -1,5 +1,6 @@
 ---
 import ReadingLayout from "@/layouts/reading-layout.astro";
+import { formatReadingTime } from "@/lib/utils";
 import { getEntries } from "astro:content";
 import { getCollection, render } from "astro:content";
 
@@ -21,6 +22,7 @@ const tags = await getEntries(post.data.tags || []);
         title: post.data.title,
         description: post.data.description,
         date: post.data.date.toDateString(),
+        readingTime: formatReadingTime(post.body ?? ""),
         url: `/things/${post.id}`
     }}
 >

@@ -10,6 +10,7 @@ interface Props {
         title: string;
         description: string;
         date: string;
+        readingTime?: string;
         url: string;
     }
 }
@@ -31,13 +32,25 @@ const { post } = Astro.props;
 				<div class="h-entry flex flex-col pt-24 md:pt-48">
 					<div class="flex flex-col gap-2">
 						{
-							post.date && (
-								<time
-									class="dt-published text-sm text-gray-500 uppercase"
-									datetime={post.date}
-								>
-									{post.date}
-								</time>
+							(post.date || post.readingTime) && (
+								<div class="flex items-center gap-2 text-sm text-gray-500 uppercase">
+									{
+										post.date && (
+											<time
+												class="dt-published"
+												datetime={post.date}
+											>
+												{post.date}
+											</time>
+										)
+									}
+									{
+										post.date && post.readingTime && (
+											<span aria-hidden="true">·</span>
+										)
+									}
+									{post.readingTime && <span>{post.readingTime}</span>}
+								</div>
 							)
 						}
 						<h1 class="p-name text-3xl font-semibold">
