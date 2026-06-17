@@ -20,7 +20,9 @@ export default defineConfig({
 		},
 	},
 
-	adapter: cloudflare(),
+	adapter: cloudflare({
+		imageService: 'cloudflare'
+	}),
 
 	fonts: [
 		{
@@ -30,12 +32,14 @@ export default defineConfig({
 		},
 	],
 
+	markdown: {
+		shikiConfig: {
+			theme: "vitesse-dark",
+		},
+	},
+
 	integrations: [
-		mdx({
-			shikiConfig: {
-				theme: "kanagawa-dragon",
-			},
-		}),
+		mdx(),
 		sitemap(),
 	],
 

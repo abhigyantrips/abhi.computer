@@ -2,7 +2,7 @@
 @plugin "@tailwindcss/typography";
 
 @utility prose-content {
-	@apply prose lg:prose-lg max-w-none text-justify;
+	@apply prose max-w-none text-justify;
 
 	.footnotes ol {
 		@apply pl-10 text-sm lg:text-base;

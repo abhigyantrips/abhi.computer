@@ -1,16 +1,15 @@
 ---
 import { Font } from "astro:assets";
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
+<!-- Global Metadata -->
 <meta charset="utf-8" />
 <link
 	rel="icon"
 	type="image/svg+xml"
 	href="/favicon.svg"
-/>
-<link
-	rel="sitemap"
-	href="/sitemap-index.xml"
 />
 <meta
 	name="viewport"
@@ -20,5 +19,30 @@ import { Font } from "astro:assets";
 	name="generator"
 	content={Astro.generator}
 />
+
+<!-- Font Imports -->
 <Font cssVariable="--font-mono" />
+
+<!-- RelMeAuth/IndieAuth Tags -->
+<link href="mailto:contact@abhi.now" rel="me" />
+<link href="mailto:hire@abhi.now" rel="me" />
+<link href="https://github.com/abhigyantrips" rel="me" />
+<link href="https://gitlab.com/abhigyantrips" rel="me" />
+<link href="https://indieauth.com/auth" rel="authorization_endpoint" />
+
+<!-- Primary Meta Tags -->
 <title>Abhigyan's Com-Puu-Tah</title>
+
+<!-- Sitemap -->
+<link
+	rel="sitemap"
+	href="/sitemap-index.xml"
+/>
+
+<!-- RSS Feed -->
+<link
+	rel="alternate"
+	type="application/rss+xml"
+	title="abhigyan trips's tech shenanigans."
+	href={new URL("/rss.xml", Astro.site)}
+/>
