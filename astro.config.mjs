@@ -5,6 +5,10 @@ import tailwindcss from "@tailwindcss/vite";
 
 import cloudflare from "@astrojs/cloudflare";
 
+import rehypeFigure from "@microflash/rehype-figure";
+
+import { codeMetaTransformer } from "@/lib/shiki-transformers.ts";
+
 import mdx from "@astrojs/mdx";
 
 import sitemap from "@astrojs/sitemap";
@@ -21,7 +25,7 @@ export default defineConfig({
 	},
 
 	adapter: cloudflare({
-		imageService: 'cloudflare'
+		imageService: "cloudflare",
 	}),
 
 	fonts: [
@@ -33,15 +37,14 @@ export default defineConfig({
 	],
 
 	markdown: {
+		rehypePlugins: [rehypeFigure],
 		shikiConfig: {
 			theme: "vitesse-dark",
+			transformers: [codeMetaTransformer],
 		},
 	},
 
-	integrations: [
-		mdx(),
-		sitemap(),
-	],
+	integrations: [mdx(), sitemap()],
 
 	vite: {
 		plugins: [tailwindcss()],
