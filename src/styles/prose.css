@@ -3,6 +3,8 @@
 
 @utility prose-content {
 	@apply prose max-w-none text-justify;
+	@apply prose-strong:font-semibold;
+	@apply prose-pre:rounded-none!;
 	@apply prose-img:rounded-none prose-img:sm:w-4/5 prose-img:sm:mx-auto prose-img:border prose-img:border-black/10;
 	@apply prose-figcaption:sm:text-center prose-figcaption:italic prose-figcaption:text-(--color-text-muted) prose-figcaption:sm:max-w-lg prose-figcaption:sm:mx-auto;
 

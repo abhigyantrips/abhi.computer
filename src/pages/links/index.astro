@@ -3,6 +3,8 @@ import PageLayout from "@/layouts/page-layout.astro";
 import { render } from "astro:content";
 import { getCollection } from "astro:content";
 
+import '@/styles/prose.css';
+
 let entries = await getCollection("links");
 // Sort by publish date descending
 entries = entries.sort((a, b) => {
@@ -48,7 +50,7 @@ function formatTime(date: Date | string) {
 						class="h-entry flex flex-row items-start bg-black/5 p-5"
 					>
 						<div class="flex flex-1 flex-col gap-3">
-							<div class="e-content prose prose-strong:text-(--color-text) prose-strong:font-semibold max-w-none text-justify text-(--color-text)">
+							<div class="e-content prose-content">
 								<a
 									href={post.data.link.url}
 									class="p-name font-bold"
