@@ -3,5 +3,6 @@
 	"description": "Related to browser extension shenanigans using WXT.",
 	"link": "https://wxt.dev",
 	"icon": "/icons/test-tag.svg",
-	"color": "#67d55e"
+	"color": "#67d55e",
+	"confidence": 4
 }

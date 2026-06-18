@@ -3,5 +3,6 @@
 	"description": "My interactions with shadcn/ui integrations and components.",
 	"link": "https://ui.shadcn.com",
 	"icon": "/icons/test-tag.svg",
-	"color": "#18181b"
+	"color": "#18181b",
+	"confidence": 5
 }

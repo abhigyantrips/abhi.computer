@@ -12,9 +12,13 @@ interface Props {
 	icon?: string;
 	color?: string;
 	link?: string;
+	confidence?: number;
 }
 
-const { title, description, icon, color, link } = Astro.props;
+const { title, description, icon, color, link, confidence } = Astro.props;
+
+const confidenceColors = ["#991b1b", "#c2410c", "#ca8a04", "#65a30d", "#15803d"];
+const activeConfidenceColor = confidenceColors[(confidence ?? 1) - 1];
 ---
 
 <!doctype html>
@@ -29,12 +33,48 @@ const { title, description, icon, color, link } = Astro.props;
 				<div class="flex flex-col gap-2 pt-48">
 					{
 						icon && (
-							<div
-								class="tag-archive-mark"
-								style={`--tag-color: ${color ?? "#111827"}`}
-								aria-hidden="true"
-							>
-								<img src={icon} alt="" />
+							<div class="flex items-start justify-between">
+								<div
+									class="tag-archive-mark"
+									style={`--tag-color: ${color ?? "#111827"}`}
+									aria-hidden="true"
+								>
+									<img
+										src={icon}
+										alt=""
+									/>
+								</div>
+								{typeof confidence === "number" && (
+									<div
+										class="flex flex-col items-end gap-1.5"
+										aria-label={`Confidence: ${confidence} out of 5`}
+									>
+										<span class="text-[10px] font-semibold tracking-[0.18em] text-gray-500 uppercase">
+											Confidence
+										</span>
+										<div class="flex gap-1.5">
+											{Array.from({ length: 5 }, (_, i) => {
+												const filled = i < confidence;
+												const isFirst = i === 0;
+												const isLast = i === 4;
+
+												return (
+													<div
+														class:list={["h-6 w-5", !filled && "bg-gray-200"]}
+														style={{
+															backgroundColor: filled ? activeConfidenceColor : undefined,
+															clipPath: isFirst
+																? "polygon(18% 0, 100% 0, 100% 100%, 0 100%, 0 18%)"
+																: isLast
+																	? "polygon(0 0, 100% 0, 100% 82%, 82% 100%, 0 100%)"
+																	: undefined,
+														}}
+													/>
+												);
+											})}
+										</div>
+									</div>
+								)}
 							</div>
 						)
 					}
@@ -47,9 +87,16 @@ const { title, description, icon, color, link } = Astro.props;
 									href={link}
 									aria-label={`Open ${title} website`}
 								>
-									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 256 256"
+									>
 										<>
-											<rect width="256" height="256" fill="none" />
+											<rect
+												width="256"
+												height="256"
+												fill="none"
+											/>
 											<line
 												x1="64"
 												y1="192"

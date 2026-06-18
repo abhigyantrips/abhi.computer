@@ -3,5 +3,6 @@
 	"description": "Work involving Cloudflare's edge, security, hosting, and developer platform.",
 	"link": "https://www.cloudflare.com",
 	"icon": "/icons/cloudflare.svg",
-	"color": "#f6821f"
+	"color": "#f6821f",
+	"confidence": 3
 }

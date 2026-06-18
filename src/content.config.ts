@@ -65,6 +65,7 @@ const tech = defineCollection({
 		link: z.url().optional(),
 		icon: z.string(),
 		color: z.string(),
+		confidence: z.number().min(1).max(5),
 	}),
 });
 

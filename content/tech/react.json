@@ -3,5 +3,6 @@
 	"description": "Things that involve React components, state, and application UI.",
 	"link": "https://react.dev",
 	"icon": "/icons/react.svg",
-	"color": "#087ea4"
+	"color": "#087ea4",
+	"confidence": 5
 }

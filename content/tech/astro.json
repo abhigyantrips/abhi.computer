@@ -3,5 +3,6 @@
 	"description": "Notes about building sites and tooling with Astro.",
 	"link": "https://astro.build",
 	"icon": "/icons/astro.svg",
-	"color": "#ff5d01"
+	"color": "#ff5d01",
+	"confidence": 4
 }
