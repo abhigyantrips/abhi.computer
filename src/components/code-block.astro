@@ -1,39 +1,129 @@
 ---
-const rawProps = Astro.props as Record<string, unknown>;
-const { class: astroClass, className, style, ...attrs } = rawProps;
+import { parseCodeMeta } from "@/lib/code-meta";
+import type { HTMLAttributes } from "astro/types";
+
+type PreProps = HTMLAttributes<"pre"> & {
+	"data-meta"?: string;
+};
+
+const { class: astroClass, className, style, "data-meta": dataMeta, ...attrs } =
+	Astro.props as PreProps;
 
 const classes = [astroClass, className]
 	.filter((value): value is string => typeof value === "string" && value.length > 0)
 	.join(" ");
+
 const language = typeof attrs["data-language"] === "string" ? attrs["data-language"] : "code";
+const { filename } = parseCodeMeta(typeof dataMeta === "string" ? dataMeta : undefined);
+const label = filename ?? language;
 ---
 
-<figure class="not-prose code-block">
-	<div class="code-block__bar">
-		<span class="code-block__label" data-code-block-label>{language}</span>
-		<div class="code-block__actions">
+<figure
+	class="group not-prose code-block my-6 overflow-hidden border border-black/15 max-sm:-mx-3 max-sm:border-x-0"
+	data-code-block-filename={filename || undefined}
+>
+	<div
+		class="flex min-h-9 items-stretch justify-between bg-black/6"
+	>
+		<span
+			class="flex items-center px-3.5 font-mono text-[0.72rem] font-bold text-zinc-800 uppercase"
+			data-code-block-label
+		>
+			{label}
+		</span>
+		<div class="flex items-stretch">
 			<button
-				class="code-block__button"
+				class="inline-grid w-9 place-items-center text-zinc-800 hover:bg-amber-400 hover:text-amber-950 focus-visible:bg-amber-400 focus-visible:text-amber-950 focus-visible:outline-none aria-pressed:bg-amber-400 aria-pressed:text-amber-950"
 				type="button"
 				data-code-block-wrap
 				aria-label="Wrap lines"
 				aria-pressed="false"
 				title="Wrap lines"
 			>
-				<i class="hn hn-align-left" aria-hidden="true"></i>
+				<svg
+					class="size-4"
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 256 256"
+					aria-hidden="true"
+					><rect width="256" height="256" fill="none"></rect><line
+						x1="40"
+						y1="64"
+						x2="216"
+						y2="64"
+						fill="none"
+						stroke="currentColor"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="16"></line><line
+						x1="40"
+						y1="104"
+						x2="168"
+						y2="104"
+						fill="none"
+						stroke="currentColor"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="16"></line><line
+						x1="40"
+						y1="144"
+						x2="216"
+						y2="144"
+						fill="none"
+						stroke="currentColor"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="16"></line><line
+						x1="40"
+						y1="184"
+						x2="168"
+						y2="184"
+						fill="none"
+						stroke="currentColor"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="16"></line></svg
+				>
 			</button>
 			<button
-				class="code-block__button"
+				class="inline-grid w-9 place-items-center text-zinc-800 hover:bg-amber-400 hover:text-amber-950 focus-visible:bg-amber-400 focus-visible:text-amber-950 focus-visible:outline-none data-copied:bg-green-500 data-copied:text-white"
 				type="button"
 				data-code-block-copy
 				aria-label="Copy code"
 				title="Copy code"
 			>
-				<i class="hn hn-copy" aria-hidden="true"></i>
+				<svg
+					class="size-4"
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 256 256"
+					aria-hidden="true"
+					><rect width="256" height="256" fill="none"></rect><polyline
+						points="168 168 216 168 216 40 88 40 88 88"
+						fill="none"
+						stroke="currentColor"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="16"></polyline><rect
+						x="40"
+						y="88"
+						width="128"
+						height="128"
+						fill="none"
+						stroke="currentColor"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="16"></rect></svg
+				>
 			</button>
 		</div>
 	</div>
-	<pre {...attrs} class={classes} style={style}><slot /></pre>
+	<pre
+		{...attrs}
+		class:list={[
+			classes,
+			"m-0 overflow-x-auto p-4 font-mono text-[0.86rem] leading-[1.65] [tab-size:2] group-data-[wrap]:overflow-x-visible group-data-[wrap]:whitespace-pre-wrap group-data-[wrap]:break-words [&_code]:block [&_code]:min-w-max [&_code]:p-0 group-data-[wrap]:[&_code]:min-w-0 group-data-[wrap]:[&_code]:whitespace-inherit",
+		]}
+		style={style}
+	><slot /></pre>
 </figure>
 
 <script>
@@ -41,24 +131,28 @@ const language = typeof attrs["data-language"] === "string" ? attrs["data-langua
 		const blocks = document.querySelectorAll(".code-block");
 
 		for (const block of blocks) {
-			if (block.hasAttribute("data-code-block-ready")) continue;
+			if (!(block instanceof HTMLElement) || block.hasAttribute("data-code-block-ready")) {
+				continue;
+			}
 
-			const pre = block?.querySelector("pre");
+			const pre = block.querySelector("pre");
 			const code = pre?.querySelector("code");
-			const label = block?.querySelector("[data-code-block-label]");
-			const copyButton = block?.querySelector("[data-code-block-copy]");
-			const wrapButton = block?.querySelector("[data-code-block-wrap]");
+			const label = block.querySelector("[data-code-block-label]");
+			const copyButton = block.querySelector<HTMLButtonElement>("[data-code-block-copy]");
+			const wrapButton = block.querySelector<HTMLButtonElement>("[data-code-block-wrap]");
+			const hasFilename = block.hasAttribute("data-code-block-filename");
 			const language =
 				pre?.dataset.language ||
 				[...(code?.classList ?? [])]
 					.find((className) => className.startsWith("language-"))
 					?.replace("language-", "");
 
-			if (label && language) {
+			if (label instanceof HTMLElement && language && !hasFilename) {
 				label.textContent = language;
 			}
 
 			block.setAttribute("data-code-block-ready", "true");
+
 			wrapButton?.addEventListener("click", () => {
 				const shouldWrap = !block.hasAttribute("data-wrap");
 
@@ -93,126 +187,3 @@ const language = typeof attrs["data-language"] === "string" ? attrs["data-langua
 		enhanceCodeBlocks();
 	}
 </script>
-
-<style>
-	.code-block {
-		--code-block-bg: #16161d;
-		--code-block-border: #2a2a37;
-		--code-block-muted: #9a9aaf;
-		--code-block-accent: #dca561;
-
-		margin: 1.5rem 0;
-		overflow: hidden;
-		border: 1px solid var(--code-block-border);
-		border-radius: 0;
-		background: var(--code-block-bg);
-		box-shadow: 0 1px 0 rgb(255 255 255 / 0.04) inset;
-	}
-
-	.code-block__bar {
-		display: flex;
-		min-height: 2.25rem;
-		align-items: center;
-		justify-content: space-between;
-		gap: 0.75rem;
-		border-bottom: 1px solid var(--code-block-border);
-		background: #2f2f36;
-		padding: 0.35rem 0.5rem 0.35rem 0.85rem;
-	}
-
-	.code-block__label {
-		color: var(--code-block-muted);
-		font-family: var(--font-mono);
-		font-size: 0.72rem;
-		font-weight: 700;
-		letter-spacing: 0;
-		line-height: 1;
-		text-transform: uppercase;
-	}
-
-	.code-block__actions {
-		display: flex;
-		align-items: center;
-		gap: 0.25rem;
-	}
-
-	.code-block__button {
-		display: inline-grid;
-		width: 1.75rem;
-		height: 1.75rem;
-		place-items: center;
-		border: 1px solid transparent;
-		border-radius: 0;
-		color: var(--code-block-muted);
-		background: transparent;
-		cursor: pointer;
-		font-size: 1rem;
-		line-height: 1;
-		transition:
-			background-color 140ms ease,
-			border-color 140ms ease,
-			color 140ms ease;
-	}
-
-	.code-block__button:hover,
-	.code-block__button:focus-visible,
-	.code-block__button[aria-pressed="true"] {
-		border-color: rgb(220 165 97 / 0.34);
-		background: rgb(220 165 97 / 0.12);
-		color: var(--code-block-accent);
-		outline: none;
-	}
-
-	.code-block__button[data-copied="true"] {
-		border-color: rgb(152 187 108 / 0.42);
-		background: rgb(152 187 108 / 0.14);
-		color: #98bb6c;
-	}
-
-	.code-block :global(.hn) {
-		line-height: 1;
-	}
-
-	pre {
-		margin: 0;
-		border-radius: 0;
-		background: transparent !important;
-		padding: 1rem;
-		overflow-x: auto;
-		font-family: var(--font-mono);
-		font-size: 0.86rem;
-		line-height: 1.65;
-		tab-size: 2;
-	}
-
-	pre :global(code) {
-		display: block;
-		min-width: max-content;
-		background: transparent;
-		padding: 0;
-		font-family: inherit;
-		font-size: inherit;
-		line-height: inherit;
-	}
-
-	.code-block[data-wrap] pre {
-		overflow-x: visible;
-		white-space: pre-wrap;
-		word-break: break-word;
-	}
-
-	.code-block[data-wrap] pre :global(code) {
-		min-width: 0;
-		white-space: inherit;
-	}
-
-	@media (max-width: 640px) {
-		.code-block {
-			margin-right: -0.75rem;
-			margin-left: -0.75rem;
-			border-right-width: 0;
-			border-left-width: 0;
-			border-radius: 0;
-		}
-	}
-</style>
