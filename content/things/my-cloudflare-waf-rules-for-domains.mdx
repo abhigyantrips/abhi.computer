@@ -9,7 +9,14 @@ fields:
   - infrastructure
 ---
 
-I've been a happy Cloudflare freeloader[^1] for about a year now. And if you've ever tracked requests going through your domains (through Observability or otherwise)
+I've been a happy Cloudflare freeloader[^1] for about a year now. If you've ever tracked requests going through your domains (through Observability or otherwise), you have probably seen requests similar to these.
+
+![A list of requests captured by Cloudflare Observability.](./images/my-cloudflare-waf-rules-for-domains-1.png)
+
+In my case -- a static [Astro](https://astro.build/) site deployed on Cloudflare -- all of these requests will return a 404. But they are still *hits*, and will still be counted towards the Worker's [billing cycle of 100K requests per day](https://developers.cloudflare.com/workers/platform/pricing/#workers). It's a lot of dead traffic from some poor bot trying to fingerprint your site.
+
+Cloudflare, funnily enough, already provides a pretty good solution with [WAF Custom Rules](https://developers.cloudflare.com/waf/custom-rules/). Deploying a Worker on a custom domain requires the domain to be onboarded onto Cloudflare, and even the Free Tier for domains provides upto 5 Custom WAF Rules you can add
+
 
 ```
 (http.request.uri.path wildcard r"*/.env*") or
@@ -34,8 +41,8 @@ I've been a happy Cloudflare freeloader[^1] for about a year now. And if you've 
 (http.request.uri.path wildcard r"*.zip")
 ```
 
-```js
-console.log("lol");
+```ts title="console.ts"
+console.log("Hello, world!");
 ```
 
 [^1]: And a "payloader", I have some Workers running on the Paid plan. :P
