@@ -7,7 +7,7 @@ import cloudflare from "@astrojs/cloudflare";
 
 import rehypeFigure from "@microflash/rehype-figure";
 
-import { codeMetaTransformer } from "@/lib/shiki-transformers.ts";
+import { codeMetaTransformer } from "./src/lib/shiki-transformers.ts";
 
 import mdx from "@astrojs/mdx";
 
@@ -39,7 +39,10 @@ export default defineConfig({
 	markdown: {
 		rehypePlugins: [rehypeFigure],
 		shikiConfig: {
-			theme: "vitesse-dark",
+			themes: {
+				light: "vitesse-light",
+				dark: "vitesse-dark",
+			},
 			transformers: [codeMetaTransformer],
 		},
 	},
