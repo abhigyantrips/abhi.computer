@@ -38,27 +38,16 @@ const { title, description, icon, color, link } = Astro.props;
 							</div>
 						)
 					}
-					<div class="flex items-center gap-3">
+					<div class="flex items-center gap-2">
 						<h1 class="text-3xl font-bold">{title}</h1>
 						{
 							link && (
 								<a
-									class="external-link-button"
+									class="text-black size-6 mt-1.5"
 									href={link}
 									aria-label={`Open ${title} website`}
 								>
-									<svg
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										aria-hidden="true"
-									>
-										<path d="M7 17 17 7" />
-										<path d="M7 7h10v10" />
-									</svg>
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><line x1="64" y1="192" x2="192" y2="64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><polyline points="88 64 192 64 192 168" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/></svg>
 								</a>
 							)
 						}
@@ -89,17 +78,6 @@ const { title, description, icon, color, link } = Astro.props;
 	.tag-archive-mark img {
 		height: 1.85rem;
 		width: 1.85rem;
-	}
-
-	.external-link-button {
-		align-items: center;
-		background: var(--color-text);
-		color: white;
-		display: inline-flex;
-		height: 2rem;
-		justify-content: center;
-		text-decoration: none;
-		width: 2rem;
 	}
 
 	.external-link-button:hover {

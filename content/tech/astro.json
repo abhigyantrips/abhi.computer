@@ -2,6 +2,6 @@
 	"name": "Astro",
 	"description": "Notes about building sites and tooling with Astro.",
 	"link": "https://astro.build",
-	"icon": "/icons/test-tag.svg",
+	"icon": "/icons/astro.svg",
 	"color": "#ff5d01"
 }
