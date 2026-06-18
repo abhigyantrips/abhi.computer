@@ -15,7 +15,8 @@ const things = defineCollection({
 		description: z.string(),
 		date: z.coerce.date(),
 		published: z.boolean().default(true),
-		tags: z.array(reference("tags")).optional(),
+		tech: z.array(reference("tech")).optional(),
+		fields: z.array(reference("fields")).optional(),
 	}),
 });
 
@@ -48,21 +49,36 @@ const links = defineCollection({
 			title: z.string(),
 		}),
 		date: z.coerce.date(),
-		tags: z.array(reference("tags")).optional(),
+		tech: z.array(reference("tech")).optional(),
+		fields: z.array(reference("fields")).optional(),
 	}),
 });
 
-const tags = defineCollection({
+const tech = defineCollection({
 	loader: glob({
-		base: "./content/tags",
+		base: "./content/tech",
 		pattern: "**/[^_]*.json",
 	}),
 	schema: z.object({
 		name: z.string(),
 		description: z.string(),
 		link: z.url().optional(),
-		color: z.string().optional(),
+		icon: z.string(),
+		color: z.string(),
 	}),
 });
 
-export const collections = { things, links, tags };
+const fields = defineCollection({
+	loader: glob({
+		base: "./content/fields",
+		pattern: "**/[^_]*.json",
+	}),
+	schema: z.object({
+		name: z.string(),
+		description: z.string(),
+		icon: z.string(),
+		color: z.string(),
+	}),
+});
+
+export const collections = { things, links, tech, fields };

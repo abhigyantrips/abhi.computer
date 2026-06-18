@@ -9,9 +9,12 @@ import "@/styles/global.css";
 interface Props {
 	title: string;
 	description: string;
+	icon?: string;
+	color?: string;
+	link?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, icon, color, link } = Astro.props;
 ---
 
 <!doctype html>
@@ -24,9 +27,42 @@ const { title, description } = Astro.props;
 		<main class="flex min-h-[calc(100vh-(--spacing(48)))] flex-1 flex-col pb-36">
 			<Container size="md">
 				<div class="flex flex-col gap-2 pt-48">
-					<h1 class="text-3xl font-bold">
-						{title}
-					</h1>
+					{
+						icon && (
+							<div
+								class="tag-archive-mark"
+								style={`--tag-color: ${color ?? "#111827"}`}
+								aria-hidden="true"
+							>
+								<img src={icon} alt="" />
+							</div>
+						)
+					}
+					<div class="flex items-center gap-3">
+						<h1 class="text-3xl font-bold">{title}</h1>
+						{
+							link && (
+								<a
+									class="external-link-button"
+									href={link}
+									aria-label={`Open ${title} website`}
+								>
+									<svg
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										aria-hidden="true"
+									>
+										<path d="M7 17 17 7" />
+										<path d="M7 7h10v10" />
+									</svg>
+								</a>
+							)
+						}
+					</div>
 					<p class="text-gray-600">{description}</p>
 				</div>
 				<hr class="my-6 border-t-2 border-gray-300" />
@@ -36,3 +72,44 @@ const { title, description } = Astro.props;
 		<Footer />
 	</body>
 </html>
+
+<style>
+	.tag-archive-mark {
+		align-items: center;
+		background: var(--tag-color);
+		clip-path: polygon(18% 0, 100% 0, 100% 82%, 82% 100%, 0 100%, 0 18%);
+		color: white;
+		display: inline-flex;
+		height: 3.25rem;
+		justify-content: center;
+		margin-bottom: 0.75rem;
+		width: 3.25rem;
+	}
+
+	.tag-archive-mark img {
+		height: 1.85rem;
+		width: 1.85rem;
+	}
+
+	.external-link-button {
+		align-items: center;
+		background: var(--color-text);
+		color: white;
+		display: inline-flex;
+		height: 2rem;
+		justify-content: center;
+		text-decoration: none;
+		width: 2rem;
+	}
+
+	.external-link-button:hover {
+		background: var(--tag-color, var(--color-text));
+		color: white;
+		text-decoration: none;
+	}
+
+	.external-link-button svg {
+		height: 1.1rem;
+		width: 1.1rem;
+	}
+</style>

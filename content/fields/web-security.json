@@ -1,0 +1,6 @@
+{
+	"name": "Web Security",
+	"description": "Security controls, request filtering, abuse reduction, and protective web platform behavior.",
+	"icon": "/icons/test-tag.svg",
+	"color": "#dc2626"
+}

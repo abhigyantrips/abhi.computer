@@ -1,5 +1,7 @@
 {
 	"name": "shadcn/ui",
 	"description": "My interactions with shadcn/ui integrations and components.",
-	"link": "https://ui.shadcn.com"
+	"link": "https://ui.shadcn.com",
+	"icon": "/icons/test-tag.svg",
+	"color": "#18181b"
 }

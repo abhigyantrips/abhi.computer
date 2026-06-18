@@ -1,5 +1,7 @@
 {
 	"name": "WXT",
 	"description": "Related to browser extension shenanigans using WXT.",
-	"link": "https://wxt.dev"
+	"link": "https://wxt.dev",
+	"icon": "/icons/test-tag.svg",
+	"color": "#67d55e"
 }

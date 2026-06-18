@@ -1,0 +1,6 @@
+{
+	"name": "Backend",
+	"description": "Server-side behavior, runtime configuration, data flow, and application infrastructure.",
+	"icon": "/icons/test-tag.svg",
+	"color": "#2563eb"
+}
