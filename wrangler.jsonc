@@ -12,13 +12,6 @@
 		"binding": "ASSETS",
 	},
 
-	"kv_namespaces": [
-		{
-			"binding": "SESSIONS",
-			"id": "8da3914079ef4549b28d920b7621482b",
-		}
-	],
-
 	"observability": {
 		"enabled": true,
 	},
