@@ -9,6 +9,15 @@ a {
 	@apply underline underline-offset-3 hover:bg-black hover:text-white hover:no-underline;
 }
 
+.navbar-logo > g[mask] > rect {
+	transition: fill 50ms ease;
+}
+
+.logo-link:hover .navbar-logo > g[mask] > rect,
+.logo-link:focus-visible .navbar-logo > g[mask] > rect {
+	fill: white;
+}
+
 .hn {
 	line-height: unset;
 }
