@@ -4,7 +4,7 @@
 @utility prose-content {
 	@apply prose max-w-none text-justify;
 	@apply prose-strong:font-semibold;
-	@apply prose-pre:rounded-none!;
+	@apply prose-pre:rounded-none! prose-pre:text-base!;
 	@apply prose-img:rounded-none prose-img:sm:w-4/5 prose-img:sm:mx-auto prose-img:border prose-img:border-black/10;
 	@apply prose-figcaption:sm:text-center prose-figcaption:italic prose-figcaption:text-(--color-text-muted) prose-figcaption:sm:max-w-lg prose-figcaption:sm:mx-auto;
 
@@ -21,4 +21,20 @@
 
 .link-entry .prose-content > :last-child {
 	margin-bottom: 0;
+}
+
+/* Remove Tailwind Typography's default before/after pseudo-elements for code */
+.prose-content code::before,
+.prose-content code::after {
+	content: none !important;
+}
+
+/* Style the inline code elements */
+.prose-content code:not(pre code) {
+	font-size: 0.85em !important;
+	font-weight: 500;
+	padding: 0.2em 0.4em;
+	border-radius: 0.25rem;
+	background-color: rgba(150, 150, 150, 0.2); /* Adjust this for light/dark themes */
+	color: inherit; /* Inherit prose color or specify a distinct color like #d946ef */
 }
