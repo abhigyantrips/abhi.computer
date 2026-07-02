@@ -23,7 +23,11 @@ const { post } = Astro.props;
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead />
+		<BaseHead
+			title={`${post.title} | Abhigyan's Com-Puu-Tah`}
+			description={post.description}
+			type="article"
+		/>
 	</head>
 	<body class="font-mono">
 		<Header />
@@ -35,10 +39,7 @@ const { post } = Astro.props;
 							(post.date || post.readingTime) && (
 								<div class="flex items-center gap-2 text-sm text-gray-500 uppercase">
 									{post.date && (
-										<time
-											class="dt-published"
-											datetime={post.date}
-										>
+										<time class="dt-published" datetime={post.date}>
 											{post.date}
 										</time>
 									)}
@@ -53,21 +54,13 @@ const { post } = Astro.props;
 						<p class="p-summary text-gray-500">{post.description}</p>
 						{
 							post.url && (
-								<a
-									class="u-url hidden"
-									href={post.url}
-								>
+								<a class="u-url hidden" href={post.url}>
 									{post.title}
 								</a>
 							)
 						}
 						<span class="p-author h-card hidden">
-							<a
-								class="p-name u-url"
-								href="https://abhi.computer/"
-								rel="author"
-								>Abhigyan Trips</a
-							>
+							<a class="p-name u-url" href="https://abhi.computer/" rel="author">Abhigyan Trips</a>
 						</span>
 					</div>
 					<hr class="my-6 border-t-2 border-gray-300" />

@@ -16,7 +16,7 @@ export async function GET() {
 				description: link.body,
 				pubDate: link.data.date,
 				categories: ["link"],
-				link: `/links/#${link.id}`,
+				link: `/links/${link.id}`,
 			})),
 			...things.map((thing) => ({
 				title: thing.data.title,
