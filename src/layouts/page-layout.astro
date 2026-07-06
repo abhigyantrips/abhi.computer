@@ -45,7 +45,10 @@ const activeConfidenceColor = confidenceColors[(confidence ?? 1) - 1];
 									style={`--tag-color: ${color ?? "#111827"}`}
 									aria-hidden="true"
 								>
-									<img src={icon} alt="" />
+									<img
+										src={icon}
+										alt=""
+									/>
 								</div>
 								{typeof confidence === "number" && (
 									<div
@@ -90,9 +93,16 @@ const activeConfidenceColor = confidenceColors[(confidence ?? 1) - 1];
 									href={link}
 									aria-label={`Open ${title} website`}
 								>
-									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 256 256"
+									>
 										<>
-											<rect width="256" height="256" fill="none" />
+											<rect
+												width="256"
+												height="256"
+												fill="none"
+											/>
 											<line
 												x1="64"
 												y1="192"
