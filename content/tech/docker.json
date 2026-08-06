@@ -1,0 +1,8 @@
+{
+	"name": "Docker",
+	"description": "Shenanigans working with headless containers and the like.",
+	"link": "https://docker.com",
+	"icon": "/icons/docker.svg",
+	"color": "#1D63ED",
+	"confidence": 3
+}
