@@ -1,6 +1,5 @@
 {
 	"name": "Infrastructure",
 	"description": "Deployment, hosting, edge platforms, and operational configuration.",
-	"icon": "/icons/test-tag.svg",
 	"color": "#475569"
 }

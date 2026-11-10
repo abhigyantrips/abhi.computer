@@ -27,12 +27,7 @@ posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 links.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
-<PageLayout
-	title={tag.data.name}
-	description={tag.data.description}
-	icon={tag.data.icon}
-	color={tag.data.color}
->
+<PageLayout title={tag.data.name} description={tag.data.description} color={tag.data.color}>
 	<div class="flex flex-col gap-10">
 		{
 			posts.length > 0 && (

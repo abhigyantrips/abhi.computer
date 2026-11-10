@@ -1,21 +1,54 @@
 ---
-import "@/styles/global.css";
-import BaseHead from "@/components/base-head.astro";
-import Logo from "@/components/logo.astro";
+import ComputerLayout from "@/layouts/computer-layout.astro";
+import ComputerIcon from "@/components/computer-icon.astro";
+import { applications } from "@/data/applications";
 ---
 
-<html lang="en">
-	<head>
-		<BaseHead />
-	</head>
-	<body class="flex min-h-screen flex-col items-center justify-center px-4">
-		<Logo class="h-auto w-full max-w-3xl" />
-
-		<div class="mt-8 space-y-4 text-center font-mono text-lg">
-			<p><a href="https://abhi.now/">abhigyan's</a> computer shenanigans.</p>
-			<p>
-				i post about <a href="/links">cool links</a> and <a href="/things">tech things</a>.
-			</p>
+<ComputerLayout>
+	<section
+		id="launcher"
+		class="launcher flex h-full flex-col overflow-hidden rounded-xl border-2 border-black bg-white"
+		aria-label="Applications and search"
+	>
+		<h1 class="sr-only">abhi.computer applications</h1>
+		<div class="min-h-0 flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
+			<label class="sr-only" for="app-search">Search applications and posts</label>
+			<input
+				id="app-search"
+				class="mx-auto mb-8 block w-full max-w-xl rounded-lg border border-black bg-white px-4 py-3"
+				type="search"
+				placeholder="Search applications and posts…"
+				autocomplete="off"
+				spellcheck="false"
+				aria-controls="post-results"
+			/>
+			<div class="application-grid grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-6">
+				{
+					applications.map((app) => (
+						<a
+							class="application flex min-h-32 flex-col items-center justify-center gap-4 rounded-lg p-4 text-center"
+							href={app.path}
+							data-search={app.title.toLowerCase()}
+						>
+							<ComputerIcon name={app.id} class="size-12" />
+							<span>{app.title}</span>
+						</a>
+					))
+				}
+			</div>
+			<section id="post-results" class="mt-6" aria-label="Post search results" hidden>
+				<p
+					id="search-status"
+					class="mb-4 text-sm text-neutral-600"
+					role="status"
+					aria-live="polite"
+				>
+				</p>
+				<button id="search-retry" class="mb-4 rounded border border-black px-3 py-2" hidden
+					>Try again</button
+				>
+				<div id="search-results" class="flex flex-col"></div>
+			</section>
 		</div>
-	</body>
-</html>
+	</section>
+</ComputerLayout>

@@ -2,7 +2,6 @@
 	"name": "Shiki",
 	"description": "Syntax highlighting and theme notes using Shiki.",
 	"link": "https://shiki.style",
-	"icon": "/icons/test-tag.svg",
 	"color": "#3b82f6",
 	"confidence": 3
 }

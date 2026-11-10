@@ -1,6 +1,5 @@
 {
 	"name": "Self-Hosting",
 	"description": "Hosting and using open software on self-maintained compute.",
-	"icon": "/icons/server.svg",
 	"color": "#7c3aed"
 }

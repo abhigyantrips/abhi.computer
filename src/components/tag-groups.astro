@@ -47,7 +47,7 @@ const groups = Astro.props.groups.filter((group) => group.entries.length > 0);
 		align-items: center;
 		background: color-mix(in srgb, var(--tag-color) 11%, transparent);
 		border: 1px solid color-mix(in srgb, var(--tag-color) 55%, transparent);
-		color: var(--color-text);
+		color: inherit;
 		display: inline-flex;
 		font-size: 0.75rem;
 		line-height: 1;
@@ -56,8 +56,9 @@ const groups = Astro.props.groups.filter((group) => group.entries.length > 0);
 	}
 
 	.tag-pill:hover {
-		background: var(--tag-color);
-		color: white;
+		background: color-mix(in srgb, var(--tag-color) 22%, transparent);
+		border-color: var(--tag-color);
+		color: inherit;
 		text-decoration: none;
 	}
 </style>

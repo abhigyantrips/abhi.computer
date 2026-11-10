@@ -1,0 +1,59 @@
+---
+import ComputerLayout from "@/layouts/computer-layout.astro";
+import { getSearchIndex } from "@/lib/search-index";
+export async function getStaticPaths() {
+	const entries = await getSearchIndex();
+	return [
+		...(["blog", "weeknotes", "snippets", "projects"] as const).map((id) => ({
+			params: { application: id },
+			props: { id, url: `https://abhi.now/${id}` },
+		})),
+		...entries
+			.filter((entry) => entry.app === "blog" || entry.app === "weeknotes")
+			.map((entry) => ({
+				params: { application: new URL(entry.url).pathname.replace(/^\//, "").replace(/\/$/, "") },
+				props: { id: entry.app as "blog" | "weeknotes", url: entry.url },
+			})),
+		...(["settings"] as const).map((id) => ({
+			params: { application: id },
+			props: { id, url: null },
+		})),
+	];
+}
+const { id, url } = Astro.props;
+---
+
+<ComputerLayout appId={id}>
+	{
+		url ? (
+			<div class="flex h-full flex-col">
+				<div class="browser-bar flex items-center justify-between gap-4 border-b border-neutral-200 px-4 py-2 text-sm">
+					<>
+						<span class="truncate text-neutral-600">{url}</span>
+						<a href={url} target="_blank" rel="noopener noreferrer">
+							Open ↗
+						</a>
+					</>
+				</div>
+				<iframe
+					src={url}
+					title={id}
+					data-external-frame
+					class="min-h-0 w-full flex-1 border-0"
+					referrerpolicy="strict-origin-when-cross-origin"
+				/>
+			</div>
+		) : (
+			<div class="p-8">
+				<>
+					<h1 class="mb-3 text-2xl">{id === "settings" ? "Settings" : "Projects"}</h1>
+					<p class="text-neutral-600">
+						{id === "settings"
+							? "Wallpaper settings will live here."
+							: "A place for projects. More soon."}
+					</p>
+				</>
+			</div>
+		)
+	}
+</ComputerLayout>

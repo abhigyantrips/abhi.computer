@@ -63,7 +63,6 @@ const tech = defineCollection({
 		name: z.string(),
 		description: z.string(),
 		link: z.url().optional(),
-		icon: z.string(),
 		color: z.string(),
 		confidence: z.number().min(1).max(5),
 	}),
@@ -77,7 +76,6 @@ const fields = defineCollection({
 	schema: z.object({
 		name: z.string(),
 		description: z.string(),
-		icon: z.string(),
 		color: z.string(),
 	}),
 });

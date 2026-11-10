@@ -1,0 +1,22 @@
+---
+import icons from "@/data/computer-icons.json";
+
+interface Props {
+	name: keyof typeof icons;
+	class?: string;
+}
+
+const { name, class: className } = Astro.props;
+---
+
+<svg
+	xmlns="http://www.w3.org/2000/svg"
+	viewBox="0 0 48 48"
+	width="24"
+	height="24"
+	class={className}
+	aria-hidden="true"
+	focusable="false"
+>
+	<Fragment set:html={icons[name].body} />
+</svg>
