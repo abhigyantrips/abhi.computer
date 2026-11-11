@@ -1,9 +1,38 @@
+import { analyticsDisabled, preferencesChangedEvent, setAnalyticsDisabled } from "./preferences";
+
 export function initializeControlPanel(signal: AbortSignal) {
 	const panel = document.querySelector<HTMLElement>("#control-panel")!;
 	const trigger = document.querySelector<HTMLButtonElement>("#control-panel-toggle")!;
 	const themeToggle = document.querySelector<HTMLButtonElement>("#theme-toggle")!;
 	const fullscreenToggle = document.querySelector<HTMLButtonElement>("#fullscreen-toggle")!;
 	const status = panel.querySelector<HTMLElement>("[data-control-status]")!;
+	const analyticsToggle = document.querySelector<HTMLButtonElement>("#analytics-toggle")!;
+	function syncAnalytics() {
+		const enabled = !analyticsDisabled();
+		analyticsToggle.setAttribute("aria-pressed", String(enabled));
+		analyticsToggle.querySelector("[data-control-state]")!.textContent = enabled ? "On" : "Off";
+	}
+	analyticsToggle.addEventListener(
+		"click",
+		() => {
+			status.textContent = "";
+			try {
+				setAnalyticsDisabled(!analyticsDisabled());
+			} catch {
+				status.textContent = "Couldn’t save the analytics preference.";
+			}
+		},
+		{ signal }
+	);
+	window.addEventListener(preferencesChangedEvent, syncAnalytics, { signal });
+	window.addEventListener(
+		"storage",
+		(event) => {
+			if (event.key === "annu.disabled" || event.key === null) syncAnalytics();
+		},
+		{ signal }
+	);
+	syncAnalytics();
 
 	panel.addEventListener(
 		"toggle",

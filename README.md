@@ -11,8 +11,10 @@ Run `npm run dev -- --port 4322` in `../abhi.now`, then run this in this reposit
 npm run dev -- --port 4321
 ```
 
-Open `http://localhost:4321/blog`. The iframe loads the local `abhi.now`, so cursor
-styles and application navigation can be tested together. To use another origin,
+Open `http://localhost:4321/blog`. The iframe loads `/blog/embed` on local `abhi.now`, so cursor
+styles and application navigation can be tested together. Blog, Weeknotes,
+Snippets and Whoami use embed routes, including Whoami facets inside its iframe;
+Projects remains on its normal page because it has no embed variant. To use another origin,
 set `PUBLIC_ABHI_NOW_ORIGIN` when starting this site. Deep links, query parameters
 and fragments are preserved; canonical and “Open” links still point to the public
 site.
@@ -20,11 +22,16 @@ site.
 Production defaults to `https://abhi.now`. Deploy the changes in both repositories
 for the bridge to work publicly. Local build tests do not verify deployed versions.
 
-Setting `localStorage.setItem("annu.disabled", "true")` and reloading opts out of
-analytics on this site and its embedded applications. The bridge saves the same
-opt-out in the iframe's storage before its analytics script can load. An existing
-opt-out on `abhi.now` is never cleared. Embedded analytics waits for the trusted
-parent's configuration; other sites embedding `abhi.now` do not load analytics.
+The control panel's Analytics toggle updates `annu.disabled` and immediately
+notifies the embedded application. Cross-tab changes also propagate. Code that
+changes the preference in this tab should use `setAnalyticsDisabled()` from
+`src/scripts/preferences.ts`; raw localStorage writes do not emit same-tab events.
+Setting `localStorage.setItem("annu.disabled", "true")` and reloading also opts out.
+The child keeps the parent preference in memory and respects its own independent
+opt-out; it does not write parent preferences into its persistent storage. Embedded
+analytics waits for the trusted parent's version-1 configuration. A later opt-out
+reloads the child if analytics has already started, since Annu has no teardown API.
+Parent theme changes also propagate to the open iframe without reloading it.
 
 ## Astro starter reference
 

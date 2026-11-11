@@ -47,6 +47,10 @@
 		"source": "faenza",
 		"image": "/icons/faenza/colophon.png"
 	},
+	"whoami": {
+		"source": "faenza",
+		"image": "/icons/faenza/colophon.png"
+	},
 	"launcher": {
 		"source": "faenza",
 		"image": "/icons/faenza/launcher.png"

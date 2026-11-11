@@ -16,6 +16,7 @@ export const applications = [
 		url: "https://abhi.now/projects",
 	},
 	{ id: "snippets", path: "/snippets", title: "Snippets", url: "https://abhi.now/snippets" },
+	{ id: "whoami", path: "/whoami", title: "Whoami", url: "https://abhi.now/whoami" },
 	{ id: "settings", path: "/settings", title: "Settings" },
 	{ id: "colophon", path: "/colophon", title: "Colophon" },
 ] as const;

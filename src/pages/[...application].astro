@@ -1,11 +1,11 @@
 ---
 import ComputerLayout from "@/layouts/computer-layout.astro";
 import { getSearchIndex } from "@/lib/search-index";
-import { getEmbedUrl } from "@/lib/embed-url";
+import { getEmbedScope, getEmbedUrl } from "@/lib/embed-url";
 export async function getStaticPaths() {
 	const entries = await getSearchIndex();
 	return [
-		...(["blog", "weeknotes", "snippets", "projects"] as const).map((id) => ({
+		...(["blog", "weeknotes", "snippets", "whoami", "projects"] as const).map((id) => ({
 			params: { application: id },
 			props: { id, url: `https://abhi.now/${id}` },
 		})),
@@ -34,8 +34,10 @@ const frameUrl = url ? getEmbedUrl(url, embeddedOrigin) : null;
 			<div class="flex h-full flex-col">
 				<div class="browser-bar flex items-center justify-between gap-4 border-b border-neutral-200 px-4 py-2 text-sm">
 					<>
-						<span class="truncate text-neutral-600">{url}</span>
-						<a href={url} target="_blank" rel="noopener noreferrer">
+						<span data-frame-url class="truncate text-neutral-600">
+							{url}
+						</span>
+						<a data-frame-open href={url} target="_blank" rel="noopener noreferrer">
 							Open ↗
 						</a>
 					</>
@@ -44,6 +46,7 @@ const frameUrl = url ? getEmbedUrl(url, embeddedOrigin) : null;
 					src={frameUrl}
 					title={id}
 					data-external-frame
+					data-embed-scope={getEmbedScope(new URL(url).pathname)}
 					class="min-h-0 w-full flex-1 border-0"
 					referrerpolicy="strict-origin-when-cross-origin"
 				/>
