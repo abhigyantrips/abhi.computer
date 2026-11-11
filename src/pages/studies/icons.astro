@@ -11,6 +11,9 @@ const apps = [
 	{ id: "projects", title: "Projects" },
 	{ id: "experiments", title: "Experiments" },
 	{ id: "settings", title: "Settings" },
+	{ id: "snippets", title: "Snippets" },
+	{ id: "colophon", title: "Colophon" },
+	{ id: "launcher", title: "Applications" },
 ] as const;
 
 const tech = await getCollection("tech", ({ id }) => ["astro", "docker", "react"].includes(id));
@@ -25,7 +28,7 @@ const fields = await getCollection("fields", ({ id }) =>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="robots" content="noindex" />
-		<title>Plump Remix icon and cursor study</title>
+		<title>Faenza icon and cursor study</title>
 	</head>
 	<body>
 		<main>
@@ -66,7 +69,9 @@ const fields = await getCollection("fields", ({ id }) =>
 				]}
 			/>
 			<p class="credit">
-				Icons by <a
+				Application icons: <a href="https://github.com/shlinux/faenza-icon-theme"
+					>Faenza by Matthieu James</a
+				> · <a href="/icons/faenza/LICENSE.txt">GPL 3.0</a>. Cursor artwork by <a
 					href="https://www.streamlinehq.com/icons/plump-remix-free"
 					target="_blank"
 					rel="noopener">Streamline</a
@@ -152,14 +157,14 @@ const fields = await getCollection("fields", ({ id }) =>
 		font: inherit;
 		font-size: 11px;
 	}
-	.app :global(svg) {
-		width: 44px;
-		height: 44px;
+	.app :global(.computer-icon) {
+		width: 64px;
+		height: 64px;
 	}
 	.app[aria-pressed="true"] {
 		border-color: currentColor;
 	}
-	.app:hover :global(svg) {
+	.app:hover :global(.computer-icon) {
 		transform: translateY(-2px);
 	}
 	.cursors {
@@ -210,7 +215,7 @@ const fields = await getCollection("fields", ({ id }) =>
 		}
 	}
 	@media (prefers-reduced-motion: reduce) {
-		.app:hover :global(svg) {
+		.app:hover :global(.computer-icon) {
 			transform: none;
 		}
 	}

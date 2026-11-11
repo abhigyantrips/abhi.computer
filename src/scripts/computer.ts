@@ -5,10 +5,13 @@ import {
 } from "astro:transitions/client";
 import { applications, type ApplicationId } from "../data/applications";
 import { normalizeSearch, searchEntries, type SearchEntry } from "../lib/search";
+import { initializeControlPanel } from "./control-panel";
+import { connectEmbeddedApp } from "./embedded-app";
 
 function initializeComputer() {
 	if (!document.body.classList.contains("computer")) return;
 	const controller = new AbortController();
+	initializeControlPanel(controller.signal);
 	const cleanups: (() => void)[] = [];
 	const storageKey = "abhi.computer.open-applications";
 	const pathsKey = "abhi.computer.application-paths";
@@ -60,6 +63,7 @@ function initializeComputer() {
 		if (!validId(id)) continue;
 		task.hidden = !opened.includes(id);
 		task.style.order = String(opened.indexOf(id));
+		task.toggleAttribute("data-taskbar-divider", opened.indexOf(id) > 0);
 		task.href = paths[id] ?? applications.find((app) => app.id === id)!.path;
 		if (id === active) task.setAttribute("aria-current", "page");
 		task.removeAttribute("aria-pressed");
@@ -77,7 +81,11 @@ function initializeComputer() {
 		document.addEventListener(
 			"keydown",
 			(event) => {
-				if (event.key === "Escape") void navigate("/desktop");
+				if (
+					event.key === "Escape" &&
+					!document.querySelector("#control-panel")?.matches(":popover-open")
+				)
+					void navigate("/desktop");
 			},
 			{ signal: controller.signal }
 		);
@@ -213,31 +221,13 @@ function initializeComputer() {
 		clock.title = `${now.toLocaleDateString(undefined, { dateStyle: "full" })} (${Intl.DateTimeFormat().resolvedOptions().timeZone})`;
 	}
 
-	const themeToggle = document.querySelector<HTMLButtonElement>("#theme-toggle")!;
-	function syncThemeToggle() {
-		const dark = document.documentElement.dataset.theme === "dark";
-		themeToggle.setAttribute("aria-pressed", String(dark));
-		themeToggle.setAttribute("aria-label", `Switch to ${dark ? "light" : "dark"} mode`);
-		themeToggle.title = themeToggle.getAttribute("aria-label")!;
-	}
-	themeToggle.addEventListener("click", () => {
-		const theme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-		document.documentElement.dataset.theme = theme;
-		try {
-			localStorage.setItem("abhi-computer-theme", theme);
-		} catch {
-			/* Storage is optional. */
-		}
-		syncThemeToggle();
-	});
-	syncThemeToggle();
-
 	updateClock();
 	const clockInterval = setInterval(updateClock, 1000);
 	cleanups.push(() => clearInterval(clockInterval));
 
 	const externalFrame = document.querySelector<HTMLIFrameElement>("[data-external-frame]");
 	if (active === "snippets" && externalFrame && location.hash) externalFrame.src += location.hash;
+	if (externalFrame) connectEmbeddedApp(externalFrame, controller.signal);
 
 	return () => {
 		controller.abort();

@@ -4,9 +4,27 @@
 @utility prose-content {
 	@apply prose max-w-none text-justify;
 	@apply prose-strong:font-semibold;
+	@apply prose-a:hover:text-white;
 	@apply prose-pre:rounded-none! prose-pre:text-base!;
 	@apply prose-img:rounded-none prose-img:sm:w-4/5 prose-img:sm:mx-auto prose-img:border prose-img:border-black/10;
 	@apply prose-figcaption:sm:text-center prose-figcaption:italic prose-figcaption:text-(--color-text-muted) prose-figcaption:sm:max-w-lg prose-figcaption:sm:mx-auto;
+	--tw-prose-body: var(--color-text);
+	--tw-prose-headings: var(--color-text);
+	--tw-prose-lead: var(--color-text-muted);
+	--tw-prose-links: var(--color-text);
+	--tw-prose-bold: var(--color-text);
+	--tw-prose-counters: var(--color-text-muted);
+	--tw-prose-bullets: var(--color-text-muted);
+	--tw-prose-hr: var(--color-line);
+	--tw-prose-quotes: var(--color-text);
+	--tw-prose-quote-borders: var(--color-line);
+	--tw-prose-captions: var(--color-text-muted);
+	--tw-prose-kbd: var(--color-text);
+	--tw-prose-code: var(--color-text);
+	--tw-prose-pre-code: var(--color-text);
+	--tw-prose-pre-bg: var(--color-hover);
+	--tw-prose-th-borders: var(--color-line);
+	--tw-prose-td-borders: var(--color-line);
 
 	overflow-wrap: break-word;
 
@@ -35,6 +53,12 @@
 	font-weight: 500;
 	padding: 0.2em 0.4em;
 	border-radius: 0.25rem;
-	background-color: rgba(150, 150, 150, 0.2); /* Adjust this for light/dark themes */
-	color: inherit; /* Inherit prose color or specify a distinct color like #d946ef */
+	background-color: color-mix(in srgb, var(--color-text-muted) 10%, transparent);
+	color: inherit;
+}
+
+html[data-theme="dark"] .astro-code,
+html[data-theme="dark"] .astro-code span {
+	color: var(--shiki-dark) !important;
+	background-color: var(--shiki-dark-bg) !important;
 }

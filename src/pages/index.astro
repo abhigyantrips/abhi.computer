@@ -7,7 +7,7 @@ import { applications } from "@/data/applications";
 <ComputerLayout>
 	<section
 		id="launcher"
-		class="launcher flex h-full flex-col overflow-hidden rounded-xl border-2 border-black bg-white"
+		class="launcher flex h-full flex-col overflow-hidden rounded-xl bg-white"
 		aria-label="Applications and search"
 	>
 		<h1 class="sr-only">abhi.computer applications</h1>
@@ -15,7 +15,7 @@ import { applications } from "@/data/applications";
 			<label class="sr-only" for="app-search">Search applications and posts</label>
 			<input
 				id="app-search"
-				class="mx-auto mb-8 block w-full max-w-xl rounded-lg border border-black bg-white px-4 py-3"
+				class="mx-auto mb-8 block w-full max-w-xl rounded-lg border-0 px-4 py-3"
 				type="search"
 				placeholder="Search applications and posts…"
 				autocomplete="off"
@@ -30,7 +30,7 @@ import { applications } from "@/data/applications";
 							href={app.path}
 							data-search={app.title.toLowerCase()}
 						>
-							<ComputerIcon name={app.id} class="size-12" />
+							<ComputerIcon name={app.id} class="size-16" />
 							<span>{app.title}</span>
 						</a>
 					))
@@ -44,9 +44,7 @@ import { applications } from "@/data/applications";
 					aria-live="polite"
 				>
 				</p>
-				<button id="search-retry" class="mb-4 rounded border border-black px-3 py-2" hidden
-					>Try again</button
-				>
+				<button id="search-retry" class="mb-4 rounded bg-white px-3 py-2" hidden>Try again</button>
 				<div id="search-results" class="flex flex-col"></div>
 			</section>
 		</div>

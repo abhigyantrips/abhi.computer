@@ -1,4 +1,32 @@
-# Astro Starter Kit: Minimal
+# abhi.computer
+
+## Developing embedded applications
+
+The iframe and its parent need the bridge code from both repositories. Development
+embeds `http://localhost:4322` by default, so run both sites locally.
+
+Run `npm run dev -- --port 4322` in `../abhi.now`, then run this in this repository:
+
+```sh
+npm run dev -- --port 4321
+```
+
+Open `http://localhost:4321/blog`. The iframe loads the local `abhi.now`, so cursor
+styles and application navigation can be tested together. To use another origin,
+set `PUBLIC_ABHI_NOW_ORIGIN` when starting this site. Deep links, query parameters
+and fragments are preserved; canonical and “Open” links still point to the public
+site.
+
+Production defaults to `https://abhi.now`. Deploy the changes in both repositories
+for the bridge to work publicly. Local build tests do not verify deployed versions.
+
+Setting `localStorage.setItem("annu.disabled", "true")` and reloading opts out of
+analytics on this site and its embedded applications. The bridge saves the same
+opt-out in the iframe's storage before its analytics script can load. An existing
+opt-out on `abhi.now` is never cleared. Embedded analytics waits for the trusted
+parent's configuration; other sites embedding `abhi.now` do not load analytics.
+
+## Astro starter reference
 
 ```sh
 pnpm create astro@latest -- --template minimal

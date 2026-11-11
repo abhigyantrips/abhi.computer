@@ -1,6 +1,7 @@
 ---
 import ComputerLayout from "@/layouts/computer-layout.astro";
 import { getSearchIndex } from "@/lib/search-index";
+import { getEmbedUrl } from "@/lib/embed-url";
 export async function getStaticPaths() {
 	const entries = await getSearchIndex();
 	return [
@@ -21,6 +22,10 @@ export async function getStaticPaths() {
 	];
 }
 const { id, url } = Astro.props;
+const embeddedOrigin =
+	import.meta.env.PUBLIC_ABHI_NOW_ORIGIN ??
+	(import.meta.env.DEV ? "http://localhost:4322" : undefined);
+const frameUrl = url ? getEmbedUrl(url, embeddedOrigin) : null;
 ---
 
 <ComputerLayout appId={id}>
@@ -36,7 +41,7 @@ const { id, url } = Astro.props;
 					</>
 				</div>
 				<iframe
-					src={url}
+					src={frameUrl}
 					title={id}
 					data-external-frame
 					class="min-h-0 w-full flex-1 border-0"
