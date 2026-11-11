@@ -20,43 +20,43 @@
 		"body": "<path d=\"m14 14 20 20m0-20L14 34\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\"/>"
 	},
 	"journal": {
-		"source": "faenza",
-		"image": "/icons/faenza/journal.png"
+		"source": "gruvbox-plus",
+		"image": "/icons/gruvbox-plus/journal.svg"
 	},
 	"blog": {
-		"source": "faenza",
-		"image": "/icons/faenza/blog.png"
+		"source": "gruvbox-plus",
+		"image": "/icons/gruvbox-plus/blog.svg"
 	},
 	"weeknotes": {
-		"source": "faenza",
-		"image": "/icons/faenza/weeknotes.png"
+		"source": "gruvbox-plus",
+		"image": "/icons/gruvbox-plus/weeknotes.svg"
 	},
 	"projects": {
-		"source": "faenza",
-		"image": "/icons/faenza/projects.png"
+		"source": "gruvbox-plus",
+		"image": "/icons/gruvbox-plus/projects.svg"
 	},
 	"snippets": {
-		"source": "faenza",
-		"image": "/icons/faenza/snippets.png"
+		"source": "gruvbox-plus",
+		"image": "/icons/gruvbox-plus/snippets.svg"
 	},
 	"settings": {
-		"source": "faenza",
-		"image": "/icons/faenza/settings.png"
+		"source": "gruvbox-plus",
+		"image": "/icons/gruvbox-plus/settings.svg"
 	},
 	"colophon": {
-		"source": "faenza",
-		"image": "/icons/faenza/colophon.png"
+		"source": "gruvbox-plus",
+		"image": "/icons/gruvbox-plus/colophon.svg"
 	},
 	"whoami": {
-		"source": "faenza",
-		"image": "/icons/faenza/colophon.png"
+		"source": "gruvbox-plus",
+		"image": "/icons/gruvbox-plus/whoami.svg"
 	},
 	"launcher": {
-		"source": "faenza",
-		"image": "/icons/faenza/launcher.png"
+		"source": "gruvbox-plus",
+		"image": "/icons/gruvbox-plus/launcher.svg"
 	},
 	"experiments": {
-		"source": "faenza",
-		"image": "/icons/faenza/experiments.png"
+		"source": "gruvbox-plus",
+		"image": "/icons/gruvbox-plus/experiments.svg"
 	}
 }
